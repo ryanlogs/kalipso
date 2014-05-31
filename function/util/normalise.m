@@ -7,7 +7,7 @@ function norm_x = normalise(x)
 	r_min =  -1;
 	r_max =  1;
 	
-	ratio = (r_max - r_min) ./  (max_vec - min_vec);
-	diff  = x - (ones(size(x,1),1)*min_vec);
+	ratio = (r_max - r_min) ./  (max_vec - min_vec); 
+	diff  = x - (ones(size(x,1),1)*min_vec); % useful to dodge a loop wherein you would want to subtract a value column-wise.
 	norm_x = ones(size(x,1),1)*ratio .* diff + r_min;
 end	
