@@ -1,12 +1,12 @@
-function  [x train test] = plotError(handle,x,test,train)
+function  [x train cv] = plotError(handle,x,train,cv)
 %adds new data over existing plot
 % x : vector for x axis
 % y : vector for y axis
 	hold on;
-	plot(handle,x,train,'red',x,test,'green');
+	plot(handle,x,train,'red',x,cv,'green');
 	hold off;
 	x = [ x(end,end) ];
-	test = [ test(end,end) ];
+	cv = [ cv(end,end) ];
 	train = [ train(end,end) ];
-	legend('Train Error %','Test Error %');
+	legend('Train Error %','Cross Validation Error %');
 end	
