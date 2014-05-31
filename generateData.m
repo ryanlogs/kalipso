@@ -3,6 +3,8 @@ function [] = generateData(loadCSV,addFeatures)
 % use the addFeatures option to specific if new features should be added
 % use loadCSV if data should load from csv 
 
+	addpath('function\util');
+	
 	fprintf('Processing train.csv ...');
 	if(loadCSV == 1)
 		csv = csvread('data\train.csv',1,0);
@@ -39,21 +41,37 @@ function [] = generateData(loadCSV,addFeatures)
 	
 	fprintf('\n\tTraining set size: %d \n\tCV set size : %d',size(Train_set,1),size(CV_set,1));	
 	
+	
+	%add features code here ..
+	
+	%normalize Training set
+	Train_X = normalise(Train_set(:,2:end));
+	Train_y = Train_set(:,1);
+	
 	fprintf('\n\nSaving Training set in data\\general\\train.mat ...');
-	save('data\general\train.mat','Train_set');
+	save('data\general\train.mat','Train_X','Train_y');
+	
+	%normalize Training set
+	CV_X = normalise(CV_set(:,2:end));
+	CV_y = CV_set(:,1);
 	
 	fprintf('\n\nSaving CV set in data\\general\\cv.mat ...');
-	save('data\general\cv.mat','CV_set');
+	save('data\general\cv.mat','CV_X','CV_y');
 	
 	%save test set directly to test.mat
-	disp(sprintf('\n\nProcessing test.csv ...'));
+	fprintf('\n\nProcessing test.csv ...');
 	Test_set = csvread('data\\test.csv',1,0);
 	
 	fprintf('\nTotal Rows : %d \tTotal Columns : %d',size(Test_set));
 	fprintf('\n\tTest set size: %d ',size(Test_set,1));
 	
-	fprintf('\n\nSaving CV set in data\\general\\test.mat');
-	save('data\general\test.mat','Test_set');
+	%add features code here ..
+	
+	%normalize Training set
+	Test_X = normalise(Test_set);
+	
+	fprintf('\n\nSaving Test set in data\\general\\test.mat');
+	save('data\general\test.mat','Test_X');
 
 	
 	fprintf('\n\nData Processing Completed!!!\n');
