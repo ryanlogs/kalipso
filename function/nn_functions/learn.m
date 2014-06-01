@@ -5,12 +5,12 @@ function [Theta, cost] = learn(	network, ...
 
 	addpath('function\nn_functions');
 	
-	num_layers = size(network,1)
+	num_layers = size(network,1);
 	
 	nn_paramters = [];
 	for i = 1: num_layers-1
 		parm = randInitializeWeights(network(i),network(i+1));
-		nn_params = [ initial_nn_paramters ; parm(:) ];
+		nn_params = [ nn_paramters ; parm(:) ];
 	end	
 	
 	fprintf('\n\nTraining Neural Network for digit %d',digit);
