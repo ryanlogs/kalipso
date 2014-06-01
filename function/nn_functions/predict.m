@@ -10,7 +10,6 @@ m = size(X, 1);
 p = zeros(size(X, 1), 1);
 H = X;
 
-Theta
 for th = 1:size(Theta)
 	H = sigmoid([ones(m,1) H] * (Theta{th})');
 end
