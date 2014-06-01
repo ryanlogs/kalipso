@@ -27,7 +27,7 @@ function [] = digit_rec(digit)
 		
 		%test it against CV
 		pred = predict(Theta,CV_X);
-		cv_acc =  mean(double(pred == Train_y)) * 100;
+		cv_acc =  mean(double(pred == CV_y)) * 100;
 		pred = predict(Theta,Train_X);
 		train_acc = mean(double(pred == Train_y)) * 100;
 		
