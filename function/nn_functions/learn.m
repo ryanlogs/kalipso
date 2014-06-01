@@ -8,7 +8,7 @@ function [Theta, cost] = learn(	network, ...
 	num_layers = size(network,1)
 	
 	nn_paramters = [];
-	for i = i: num_layers-1
+	for i = 1: num_layers-1
 		parm = randInitializeWeights(network(i),network(i+1));
 		nn_params = [ initial_nn_paramters ; parm(:) ];
 	end	

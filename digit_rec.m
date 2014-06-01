@@ -8,11 +8,11 @@ function [] = digit_rec(digit)
 	load('data\general\train.mat');
 	load('data\general\cv.mat');
 	network = [784 ;784; 1];
-	num_layers = size(network,1)
+	num_layers = size(network,1);
 	lambda = 0.1:0.2:0.5;
 	accuracy = 0;
 	best_lambda = 0;
-	best_Theta  = cell(num_layers-1,1)
+	best_Theta  = cell(num_layers-1,1);
 	
 	fig = getErrorFigure();
 	x = [];
