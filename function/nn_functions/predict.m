@@ -11,7 +11,7 @@ p = zeros(size(X, 1), 1);
 H = X;
 
 for th = size(Theta)
-	H = sigmoid([ones(m,1) H] * (Theta{i})');
+	H = sigmoid([ones(m,1) H] * (Theta{th})');
 end
 
 p = H

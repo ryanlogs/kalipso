@@ -16,7 +16,7 @@ function [Theta, cost] = learn(	network, ...
 	fprintf('\n\nTraining Neural Network for digit %d',digit);
 	
 	%options = optimset('MaxIter', 10);
-	for iter = 1:size(X,1) 
+	for iter = 1:1000
 	
 %		costFunction = @(p) nnCostFunction(p, network, X, y, digit, lambda);
 %		[nn_params, cost] = fmincg(costFunction, nn_params, options);	
