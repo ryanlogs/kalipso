@@ -1,4 +1,4 @@
-function = digit_rec(digit)
+function [] = digit_rec(digit)
 	%pass the digit u want the NN to recognise
 	
 	addpath('function\nn_functions');
