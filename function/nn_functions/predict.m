@@ -11,6 +11,7 @@ p = zeros(size(X, 1), 1);
 H = X;
 
 for th = 1:size(Theta)
+	disp(sprintf('%d &d,   %d %d',size(H),size(Theta{th})));
 	H = sigmoid([ones(m,1) H] * (Theta{th})');
 end
 
