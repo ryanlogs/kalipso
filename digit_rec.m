@@ -25,11 +25,26 @@ function [] = digit_rec(digit)
 		lm = ones(num_layers-1,1) .* i;
 		[Theta, cost] = learn( network, Train_X, Train_y, digit, lm );
 		
+		
+		Train_Y = zeros(size(Train_y));
+		for i = 1:size(Train_y,1)
+			if(Train_y(i)==digit)
+				Train_Y(i,1) = 1;
+			end	
+		end
+		
+		CV_Y = zeros(size(CV_y));
+		for i = 1:size(CV_y,1)
+			if(CV_y(i)==digit)
+				CV_Y(i,1) = 1;
+			end	
+		end
+		
 		%test it against CV
 		pred = predict(Theta,CV_X);
-		cv_acc =  mean(double(pred == CV_y)) * 100;
+		cv_acc =  mean(double(pred == CV_Y)) * 100;
 		pred = predict(Theta,Train_X);
-		train_acc = mean(double(pred == Train_y)) * 100;
+		train_acc = mean(double(pred == Train_Y)) * 100;
 		
 		x = [ x ; i ];
 		train = [ train ; train_acc];

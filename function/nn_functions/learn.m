@@ -16,11 +16,11 @@ function [Theta, cost] = learn(	network, ...
 	fprintf('\n\nTraining Neural Network for digit %d',digit);
 	
 	%options = optimset('MaxIter', 10);
-	for iter = 1:size(X,1)
+	for iter = 1:100:size(X,1)-100
 	
 %		costFunction = @(p) nnCostFunction(p, network, X, y, digit, lambda);
 %		[nn_params, cost] = fmincg(costFunction, nn_params, options);	
-		[cost, nn_params] = gradientDescent(nn_params, network, X(i,:),y(i),digit,lambda,iter);
+		[cost, nn_params] = gradientDescent(nn_params, network, X(i+1:i+100,:),y(i+1:i+100),digit,lambda,iter);
 	end	
 	
 	Theta = cell(num_layers-1,1);
