@@ -10,7 +10,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	Theta = cell(num_layers-1,1);
 	read = 0;
 	for i = 1:num_layers - 1
-		Theta{1} = reshape(nn_params(read + 1:network(i+1) * (network(i) + 1)), ...
+		Theta{i} = reshape(nn_params(read + 1: read + network(i+1) * (network(i) + 1)), ...
 						network(i+1), network(i)+1);
 						
 		read = 	network(i+1) * (network(i) + 1);
@@ -26,9 +26,9 @@ function [J grad] = nnCostFunction(nn_params, ...
 		if(i==1)
 			A{i} = [ones(m,1) , X];
 		else
-			Z{i} = A{i-1} * Theta{i-1};
+			Z{i} = A{i-1} * (Theta{i-1})';
 			A{i} = sigmoid(Z{i});
-			if(i!=num_layers)
+			if(i~=num_layers)
 				A{i} = [ ones(m,1) , A{i} ];
 			end		
 		end		
@@ -66,10 +66,14 @@ function [J grad] = nnCostFunction(nn_params, ...
 	for i = num_layers:-1:1
 		if(i==num_layers)
 			del{i} = 2 .* (A{i} - Y) .* sigmoidGradient(A{i});
-		else
-			del{i} = delta{i+1} * Theta{i};
-			del{i} = del{i}(:,2:end) .* sigmoidGradient(Z{i});
-			delta{i} = (del{i+1})' * A{i};  
+		else 
+			if(i == 1)
+				delta{i} = (del{i+1})' * A{i};  
+			else
+				del{i} = del{i+1} * Theta{i};
+				del{i} = del{i}(:,2:end) .* sigmoidGradient(Z{i});
+				delta{i} = (del{i+1})' * A{i};  	
+			end
 		end
 	end
 	
@@ -78,7 +82,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 		Theta_grad{i} = delta{i} ./ m;
 	end
 
-	grad = []
+	grad = [];
 	for i = 1:num_layers - 1
 		Theta_grad{i}(:,2:end) = Theta_grad{i}(:,2:end)  + Theta{i}(:,2:end) .* (lambda(i)/m);
 		
