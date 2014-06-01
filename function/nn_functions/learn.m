@@ -20,7 +20,7 @@ function [Theta, cost] = learn(	network, ...
 	
 %		costFunction = @(p) nnCostFunction(p, network, X, y, digit, lambda);
 %		[nn_params, cost] = fmincg(costFunction, nn_params, options);	
-		[nn_params, cost] = gradientDescent(nn_params, network, X(i,:),y(i),digit,lambda,iter);
+		[cost, nn_params] = gradientDescent(nn_params, network, X(i,:),y(i),digit,lambda,iter);
 	end	
 	
 	Theta = cell(num_layers-1,1);

@@ -9,6 +9,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	num_layers = length(network);
 	Theta = cell(num_layers-1,1);
 	read = 0;
+
 	for i = 1:num_layers - 1
 		Theta{i} = reshape(nn_params(read + 1: read + network(i+1) * (network(i) + 1)), ...
 						network(i+1), network(i)+1);
@@ -56,7 +57,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	reg = reg / (2*m);
 	
 	J = J + reg;
-	disp(sprintf('Cost %d',J));
+
 	%computing gradient
 	
 	delta = cell(num_layers,1);
