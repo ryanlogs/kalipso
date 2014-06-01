@@ -41,9 +41,8 @@ function [J grad] = nnCostFunction(nn_params, ...
 			Y(i,1) = 1;
 		end	
 	end
-	
-	p1 = Y .* log(A{num_layers});
-	p2 = (1 - Y) .* log(1 - A{num_layers});
+	p1 = Y .* log(((A{num_layers} ./ 1.7159) +1)./2);
+	p2 = (1 - Y) .* log(1 - ((A{num_layers} ./ 1.7159)+1)./2);
 	
 	J = sum(p1 + p2) ;
 	J = sum(J) / (-1 * m);
@@ -57,7 +56,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	reg = reg / (2*m);
 	
 	J = J + reg;
-	
+	disp(sprintf('Cost %d',J));
 	%computing gradient
 	
 	delta = cell(num_layers,1);
@@ -89,6 +88,5 @@ function [J grad] = nnCostFunction(nn_params, ...
 		% Unroll gradients	
 		grad = [grad ; Theta_grad{i}(:)];
 	end
-	
 	
 end
