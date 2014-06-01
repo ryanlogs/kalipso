@@ -1,5 +1,4 @@
 function g = sigmoid(z)
 %Symmetric sigmoid function
-
-	g = 1.7159 .* tanh((2.*z)./3);
+	g = 1.0 ./ (1.0 + exp(-z));
 end

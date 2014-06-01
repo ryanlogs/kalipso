@@ -42,8 +42,10 @@ function [J grad] = nnCostFunction(nn_params, ...
 			Y(i,1) = 1;
 		end	
 	end
-	p1 = Y .* log(((A{num_layers} ./ 1.7159) +1)./2);
-	p2 = (1 - Y) .* log(1 - ((A{num_layers} ./ 1.7159)+1)./2);
+
+	p1 = Y .* log(A{num_layers});
+	p2 = (1 - Y) .* log(1 - A{num_layers});
+
 	
 	J = sum(p1 + p2) ;
 	J = sum(J) / (-1 * m);
@@ -65,7 +67,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	
 	for i = num_layers:-1:1
 		if(i==num_layers)
-			del{i} = 2 .* (A{i} - Y) .* sigmoidGradient(A{i});
+			del{i} = (A{i} - Y);
 		else 
 			if(i == 1)
 				delta{i} = (del{i+1})' * A{i};  
