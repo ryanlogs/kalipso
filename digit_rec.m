@@ -21,14 +21,15 @@ function [] = digit_rec(digit)
 	
 	for i = lambda
 		%train the NN	
+		
 		lm = ones(num_layers-1,1) .* i;
 		[Theta, cost] = learn( network, Train_X, Train_y, digit, lm );
 		
 		%test it against CV
 		pred = predict(Theta,CV_X);
-		cv_acc =  mean(double(pred == y)) * 100;
+		cv_acc =  mean(double(pred == Train_y)) * 100;
 		pred = predict(Theta,Train_X);
-		train_acc = mean(double(pred == y)) * 100;
+		train_acc = mean(double(pred == Train_y)) * 100;
 		
 		x = [ x ; i ];
 		train = [ train ; train_acc];

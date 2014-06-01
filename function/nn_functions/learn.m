@@ -21,9 +21,9 @@ function [Theta, cost] = learn(	network, ...
 		costFunction = @(p) nnCostFunction(p, ...
 									network, ...
 									X(i,:), y(i), digit, lambda);
-								   
-		fprintf('\nIteration %d',iter)								
+								  								
 		[nn_params, cost] = fmincg(costFunction, nn_params, options);	
+		disp(sprintf('%d %f',iter,cost));
 	end	
 	
 	Theta = cell(num_layers-1,1);

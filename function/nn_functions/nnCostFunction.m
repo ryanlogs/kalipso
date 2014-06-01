@@ -31,7 +31,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 			if(i~=num_layers)
 				A{i} = [ ones(m,1) , A{i} ];
 			end		
-		end		
+		end	
 	end
 	
 	%setting output vector	

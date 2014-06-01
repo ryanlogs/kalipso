@@ -150,7 +150,7 @@ while i < abs(length)                                      % while not finished
 
   if success                                         % if line search succeeded
     f1 = f2; fX = [fX', f1]';
-    fprintf('Cost: %4.6e\r', S, f1);
+    fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
 	
 	%a = [a ; f1];
 	%plot(a);
