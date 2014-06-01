@@ -1,4 +1,4 @@
-function [X, fX, i] = fmincg(f, X, options, P1, P2, P3, P4, P5)
+function [X, fX, i] = fmincg(f, X, iter, options, P1, P2, P3, P4, P5)
 % Minimize a continuous differentialble multivariate function. Starting point
 % is given by "X" (D by 1), and the function named in the string "f", must
 % return a function value and a vector of partial derivatives. The Polack-
@@ -150,7 +150,7 @@ while i < abs(length)                                      % while not finished
 
   if success                                         % if line search succeeded
     f1 = f2; fX = [fX', f1]';
-    fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
+    fprintf('%s %4i | Cost: %4.6e\r', S, iter, f1);
 	
 	%a = [a ; f1];
 	%plot(a);

@@ -3,6 +3,6 @@ function handle = getErrorFigure()
 	
 	fig = figure('Name','Variance/Bias');
 	handle = axes('Parent',fig);
-	xlabel('Iterations');
+	xlabel('Lambda');
 	ylabel('Error %');
 end	

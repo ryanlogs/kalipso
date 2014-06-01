@@ -3,12 +3,13 @@ function [J grad] = nnCostFunction(nn_params, ...
                                    X, y, digit, lambda)
 
 	
+	addpath('function\nn_functions');
 	m = size(X,1);	
 	
 	num_layers = length(network);
-	Theta = cell(num_lables-1,1);
+	Theta = cell(num_layers-1,1);
 	read = 0;
-	for i = 1:num_lables - 1
+	for i = 1:num_layers - 1
 		Theta{1} = reshape(nn_params(read + 1:network(i+1) * (network(i) + 1)), ...
 						network(i+1), network(i)+1);
 						
@@ -48,7 +49,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	J = sum(J) / (-1 * m);
 
 	reg = 0;
-	for i = 1:num_lables-1
+	for i = 1:num_layers-1
 		t = Theta{i}(:,2:end);
 		reg = sum(t(:).^2) * lambda(i);
 	end
@@ -72,13 +73,13 @@ function [J grad] = nnCostFunction(nn_params, ...
 		end
 	end
 	
-	Theta_grad = cell(num_lables-1,1);
-	for i = 1:num_lables - 1
+	Theta_grad = cell(num_layers-1,1);
+	for i = 1:num_layers - 1
 		Theta_grad{i} = delta{i} ./ m;
 	end
 
 	grad = []
-	for i = 1:num_lables - 1
+	for i = 1:num_layers - 1
 		Theta_grad{i}(:,2:end) = Theta_grad{i}(:,2:end)  + Theta{i}(:,2:end) .* (lambda(i)/m);
 		
 		% Unroll gradients	
