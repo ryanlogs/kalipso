@@ -7,7 +7,7 @@ function [] = digit_rec(digit)
 	%initialize paramteres
 	load('data\general\train.mat');
 	load('data\general\cv.mat');
-	network = [784 ;784; 1];
+	network = [784*2 ;784*2; 1];
 	num_layers = size(network,1);
 	lambda = 0.05:0.05:1.5;
 	accuracy = 0;
