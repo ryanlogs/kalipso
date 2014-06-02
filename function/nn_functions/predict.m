@@ -14,7 +14,12 @@ for th = 1:size(Theta)
 	H = sigmoid([ones(m,1) H] * (Theta{th})');
 end
 
-p = H;
+P = zeros(size(H));
+for i = 1:size(H)
+	if(H(i)>0.6)
+		p(i) = 1;
+	end
+end	
 % =========================================================================
 
 

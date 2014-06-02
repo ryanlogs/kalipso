@@ -18,6 +18,7 @@ function [] = digit_rec(digit)
 	x = [];
 	train = [];
 	cv = [];
+
 	
 	for i = lambda
 		%train the NN	
@@ -27,32 +28,34 @@ function [] = digit_rec(digit)
 		
 		
 		Train_Y = zeros(size(Train_y));
-		for i = 1:size(Train_y,1)
-			if(Train_y(i)==digit)
-				Train_Y(i,1) = 1;
+		for j = 1:size(Train_y,1)
+			if(Train_y(j)==digit)
+				Train_Y(j,1) = 1;
 			end	
 		end
 		
 		CV_Y = zeros(size(CV_y));
-		for i = 1:size(CV_y,1)
-			if(CV_y(i)==digit)
-				CV_Y(i,1) = 1;
+		for j = 1:size(CV_y,1)
+			if(CV_y(j)==digit)
+				CV_Y(j,1) = 1;
 			end	
 		end
 		
 		%test it against CV
 		pred = predict(Theta,CV_X);
 		cv_acc =  mean(double(pred == CV_Y)) * 100;
+		
+	
 		pred = predict(Theta,Train_X);
 		train_acc = mean(double(pred == Train_Y)) * 100;
-		
+			[ CV_y(1:10) pred(1:10)]
 		x = [ x ; i ];
 		train = [ train ; train_acc];
 		cv = [ cv ; cv_acc];
-		[x train cv] = plotError(fig,x,train,cv)
+		[x train cv] = plotError(fig,x,train,cv);
 		
 		fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
-		
+		fprintf('\nTraining Accuracy: %f |\tlambda: %f\n', train_acc, i);
 		if(accuracy < cv_acc)
 			best_lambda = i;
 			best_Theta = Theta;
@@ -61,6 +64,6 @@ function [] = digit_rec(digit)
 	end
 	save_name = sprintf('data\\theta\\%s_%d_Theta%s.mat','DigitRec',digit,datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
 	%saving theta
-	fprintf('\n\nSaving Theta for lambda %f in %s',best_lambda,save_name);
+	fprintf('\n\nSaving Theta for lambda %f in %s\n',best_lambda,save_name);
 	save(save_name,'best_Theta');
 end
