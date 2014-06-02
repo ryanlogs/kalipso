@@ -45,14 +45,16 @@ function [] = generateData(loadCSV,addFeatures)
 	%add features code here ..
 	
 	%normalize Training set
-	Train_X = normalise(Train_set(:,2:end));
+	features = [Train_set(:,2:end) Train_set(:,2:end).^2 ]
+	Train_X = normalise(features);
 	Train_y = Train_set(:,1);
 	
 	fprintf('\n\nSaving Training set in data\\general\\train.mat ...');
 	save('data\general\train.mat','Train_X','Train_y');
 	
 	%normalize Training set
-	CV_X = normalise(CV_set(:,2:end));
+	features = [normalise(CV_set(:,2:end)) normalise(CV_set(:,2:end)).^2]
+	CV_X = normalise(features);
 	CV_y = CV_set(:,1);
 	
 	fprintf('\n\nSaving CV set in data\\general\\cv.mat ...');
@@ -68,7 +70,8 @@ function [] = generateData(loadCSV,addFeatures)
 	%add features code here ..
 	
 	%normalize Training set
-	Test_X = normalise(Test_set);
+	features = [ Test_set Test_set.^2]
+	Test_X = normalise(features);
 	
 	fprintf('\n\nSaving Test set in data\\general\\test.mat');
 	save('data\general\test.mat','Test_X');
