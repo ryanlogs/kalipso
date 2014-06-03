@@ -25,7 +25,7 @@ function [] = digit_rec(digit)
 		%train the NN	
 		
 		lm = ones(num_layers-1,1) .* i;
-		[Theta, cost] = learn( network, Train_X, Train_y, digit, [0.15;0.05; 0.03], iter );
+		[Theta, cost] = learn( network, Train_X, Train_y, digit, [1.2 ;0.6; 0.6], iter );
 		
 		
 		Train_Y = zeros(size(Train_y));
