@@ -7,12 +7,13 @@ function [] = digit_rec(digit)
 	%initialize paramteres
 	load('data\general\train.mat');
 	load('data\general\cv.mat');
-	network = [784*2 ;784*2; 1];
+	network = [784 ;100; 100; 2];
 	num_layers = size(network,1);
-	lambda = 0.05:0.05:1.5;
+	lambda = 0.1;
 	accuracy = 0;
 	best_lambda = 0;
 	best_Theta  = cell(num_layers-1,1);
+	iter = 100;
 	
 	fig = getErrorFigure();
 	x = [];
@@ -20,11 +21,11 @@ function [] = digit_rec(digit)
 	cv = [];
 
 	
-	for i = lambda
+	%for i = lambda
 		%train the NN	
 		
 		lm = ones(num_layers-1,1) .* i;
-		[Theta, cost] = learn( network, Train_X, Train_y, digit, lm );
+		[Theta, cost] = learn( network, Train_X, Train_y, digit, [0.15;0.05; 0.03], learn );
 		
 		
 		Train_Y = zeros(size(Train_y));
@@ -34,6 +35,8 @@ function [] = digit_rec(digit)
 			end	
 		end
 		
+		Train_Y = [ mod(Train_Y+1,2) Train_Y];
+		
 		CV_Y = zeros(size(CV_y));
 		for j = 1:size(CV_y,1)
 			if(CV_y(j)==digit)
@@ -41,14 +44,14 @@ function [] = digit_rec(digit)
 			end	
 		end
 		
+		CV_Y = [ mod(CV_Y+1,2) CV_Y ];
+		
 		%test it against CV
 		pred = predict(Theta,CV_X);
-		cv_acc =  mean(double(pred == CV_Y)) * 100;
+		cv_acc =  mean(double(pred == CV_Y(:,2))) * 100;
 		
-	
 		pred = predict(Theta,Train_X);
-		train_acc = mean(double(pred == Train_Y)) * 100;
-			[ CV_y(1:10) pred(1:10)]
+		train_acc = mean(double(pred == Train_Y(:,2))) * 100;
 		x = [ x ; i ];
 		train = [ train ; train_acc];
 		cv = [ cv ; cv_acc];
@@ -61,7 +64,7 @@ function [] = digit_rec(digit)
 			best_Theta = Theta;
 		end
 		
-	end
+	%end
 	save_name = sprintf('data\\theta\\%s_%d_Theta%s.mat','DigitRec',digit,datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
 	%saving theta
 	fprintf('\n\nSaving Theta for lambda %f in %s\n',best_lambda,save_name);

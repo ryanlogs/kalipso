@@ -10,16 +10,14 @@ m = size(X, 1);
 p = zeros(size(X, 1), 1);
 H = X;
 
-for th = 1:size(Theta)
+for th = 1:size(Theta,1)
 	H = sigmoid([ones(m,1) H] * (Theta{th})');
 end
 
-P = zeros(size(H));
-for i = 1:size(H)
-	if(H(i)>0.6)
-		p(i) = 1;
-	end
-end	
+H(1:10,:)
+P = zeros(size(H,1),1);
+[dummy, P] = max(H,[],2);
+P = P-1;
 % =========================================================================
 
 

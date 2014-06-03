@@ -42,6 +42,8 @@ function [J grad] = nnCostFunction(nn_params, ...
 			Y(i,1) = 1;
 		end	
 	end
+	
+	Y = [mod(Y+1,2) Y];
 
 	p1 = Y .* log(A{num_layers});
 	p2 = (1 - Y) .* log(1 - A{num_layers});
@@ -53,7 +55,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	reg = 0;
 	for i = 1:num_layers-1
 		t = Theta{i}(:,2:end);
-		reg = sum(t(:).^2) * lambda(i);
+		reg = reg + sum(t(:).^2) * lambda(i);
 	end
 	
 	reg = reg / (2*m);
