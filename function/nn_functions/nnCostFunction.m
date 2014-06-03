@@ -47,7 +47,12 @@ function [J grad] = nnCostFunction(nn_params, ...
 
 	p1 = Y .* log(A{num_layers});
 	p2 = (1 - Y) .* log(1 - A{num_layers});
-
+	
+	for i = A{num_layers}
+		if(i>1)
+			disp(i);
+		end
+	end	
 	
 	J = sum(p1 + p2) ;
 	J = sum(J) / (-1 * m);
