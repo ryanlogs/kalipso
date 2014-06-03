@@ -48,10 +48,10 @@ function [] = digit_rec(digit)
 		
 		%test it against CV
 		pred = predict(Theta,CV_X);
-		cv_acc =  mean(double(pred == CV_Y(:,2))) * 100;
+		cv_acc =  mean(double(pred == CV_Y)) * 100;
 		
 		pred = predict(Theta,Train_X);
-		train_acc = mean(double(pred == Train_Y(:,2))) * 100;
+		train_acc = mean(double(pred == Train_Y)) * 100;
 		x = [ x ; i ];
 		train = [ train ; train_acc];
 		cv = [ cv ; cv_acc];
