@@ -7,7 +7,7 @@ function [] = digit_rec(digit)
 	%initialize paramteres
 	load('data\general\train.mat');
 	load('data\general\cv.mat');
-	network = [784 ;100;2];
+	network = [784 ;100; 100; 2];
 	num_layers = size(network,1);
 	lambda = 0.1;
 	accuracy = 0;
@@ -25,7 +25,7 @@ function [] = digit_rec(digit)
 		%train the NN	
 		
 		lm = ones(num_layers-1,1) .* i;
-		[Theta, cost] = learn( network, Train_X, Train_y, digit, [1.2 ;0.6], iter );
+		[Theta, cost] = learn( network, Train_X, Train_y, digit, [1.2 ;0.6; 0.6], iter );
 		
 		
 		Train_Y = zeros(size(Train_y));
@@ -55,7 +55,7 @@ function [] = digit_rec(digit)
 		x = [ x ; i ];
 		train = [ train ; train_acc];
 		cv = [ cv ; cv_acc];
-		[x train cv] = plotError(fig,x,train,cv);
+		%[x train cv] = plotError(fig,x,train,cv);
 		
 		fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
 		fprintf('\nTraining Accuracy: %f |\tlambda: %f\n', train_acc, i);
