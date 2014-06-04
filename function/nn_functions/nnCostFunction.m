@@ -58,7 +58,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	
 	T1 = Theta1(:,2:input_layer_size+1);
 	T2 = Theta2(:,2:hidden_layer1_size+1);
-	T3 = Theta2(:,2:hidden_layer2_size+1);
+	T3 = Theta3(:,2:hidden_layer2_size+1);
 	reg = sum(T1(:) .^ 2) * lambda(1) + sum(T2(:) .^ 2)* lambda(2) + sum(T3(:) .^ 2)* lambda(3);
 	reg = (reg * lambda(1)) / (2*m);
 	

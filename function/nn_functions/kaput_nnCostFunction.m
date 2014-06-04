@@ -1,4 +1,4 @@
-function [J grad] = nnCostFunction(nn_params, ...
+function [J grad] = kaput_nnCostFunction(nn_params, ...
                                    network, ...
                                    X, y, digit, lambda)
 
@@ -15,7 +15,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 		Theta{i} = reshape(nn_params(read + 1: read + network(i+1) * (network(i) + 1)), ...
 						network(i+1), network(i)+1);
 						
-		read = 	network(i+1) * (network(i) + 1);
+		read = 	read + network(i+1) * (network(i) + 1);
 	end		
 	
 % You need to return the following variables correctly 
@@ -51,7 +51,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	reg = 0;
 	for i = 1:num_layers-1
 		t = Theta{i}(:,2:end);
-		reg = reg + sum(t(:).^2) * lambda;
+		reg = reg + sum(t(:).^2) * lambda(i);
 	end
 	
 	reg = reg / (2*m);
@@ -84,7 +84,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 
 	grad = [];
 	for i = 1:num_layers - 1
-		Theta_grad{i}(:,2:end) = Theta_grad{i}(:,2:end)  + Theta{i}(:,2:end) .* (lambda/m);
+		Theta_grad{i}(:,2:end) = Theta_grad{i}(:,2:end)  + Theta{i}(:,2:end) .* (lambda(i)/m);
 		
 		% Unroll gradients	
 		grad = [grad ; Theta_grad{i}(:)];

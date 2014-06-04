@@ -28,7 +28,7 @@ end
 options = optimset('MaxIter', iter);
 
 %training NN, the digit value 0 is just a dummy value, not used inside
-costFunction = @(p) nnCostFunction(p, network, Train_X, Train_y, lambda);
+costFunction = @(p) kaput_nnCostFunction(p, network, Train_X, Train_y, 0, lambda);
 [nn_params, cost] = fmincg(costFunction, initial_nn_params, options);	
 	
 %unrolling theta	
@@ -38,7 +38,7 @@ for i = 1:num_layers - 1
 	Theta{i} = reshape(nn_params(read + 1: read + network(i+1) * (network(i) + 1)), ...
 					network(i+1), network(i)+1);
 						
-	read = 	network(i+1) * (network(i) + 1);
+	read = 	read + network(i+1) * (network(i) + 1);
 end
 
 pred = predict(Theta,Train_X);
