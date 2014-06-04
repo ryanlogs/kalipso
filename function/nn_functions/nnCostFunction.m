@@ -7,6 +7,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	m = size(X,1);	
 	
 	num_layers = length(network);
+	num_lables = network(num_layers);
 	Theta = cell(num_layers-1,1);
 	read = 0;
 
@@ -36,14 +37,10 @@ function [J grad] = nnCostFunction(nn_params, ...
 	end
 	
 	%setting output vector	
-	Y = zeros(m,1);
-	for i = 1:m
-		if(y(i)==digit)
-			Y(i,1) = 1;
-		end	
-	end
-	
-	Y = [mod(Y+1,2) Y];
+	Y = zeros(m, num_lables);
+	for i = 1:m,
+		Y(i,y(i)+1) = 1;
+	end;
 
 	p1 = Y .* log(A{num_layers});
 	p2 = (1 - Y) .* log(1 - A{num_layers});
@@ -54,7 +51,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 	reg = 0;
 	for i = 1:num_layers-1
 		t = Theta{i}(:,2:end);
-		reg = reg + sum(t(:).^2) * lambda(i);
+		reg = reg + sum(t(:).^2) * lambda;
 	end
 	
 	reg = reg / (2*m);
@@ -87,7 +84,7 @@ function [J grad] = nnCostFunction(nn_params, ...
 
 	grad = [];
 	for i = 1:num_layers - 1
-		Theta_grad{i}(:,2:end) = Theta_grad{i}(:,2:end)  + Theta{i}(:,2:end) .* (lambda(i)/m);
+		Theta_grad{i}(:,2:end) = Theta_grad{i}(:,2:end)  + Theta{i}(:,2:end) .* (lambda/m);
 		
 		% Unroll gradients	
 		grad = [grad ; Theta_grad{i}(:)];

@@ -48,8 +48,6 @@ function [X, fX, i] = fmincg(f, X, options, P1, P2, P3, P4, P5)
 %
 
 % Read options
-
-
 if exist('options', 'var') && ~isempty(options) && isfield(options, 'MaxIter')
     length = options.MaxIter;
 else
@@ -152,7 +150,6 @@ while i < abs(length)                                      % while not finished
 
   if success                                         % if line search succeeded
     f1 = f2; fX = [fX', f1]';
-	disp(f1);
     fprintf('%s %4i | Cost: %4.6e\r', S, i, f1);
 	
 	%a = [a ; f1];

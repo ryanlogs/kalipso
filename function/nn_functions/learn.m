@@ -13,7 +13,7 @@ function [Theta, cost] = learn(	network, ...
 		nn_params = [ nn_params ; parm(:) ];
 	end	
 	
-	fprintf('\n\nTraining Neural Network for digit %d',digit);
+	fprintf('\n\nTraining Neural Network for digit %d\n',digit);
 	
 	options = optimset('MaxIter', iter);
 	

@@ -8,16 +8,13 @@ m = size(X, 1);
 
 % You need to return the following variables correctly 
 p = zeros(size(X, 1), 1);
+
 H = X;
+for i = 1:size(Theta)
+	H = sigmoid([ones(m,1) H] * (Theta{i})');
 
-for th = 1:size(Theta,1)
-	H = sigmoid([ones(m,1) H] * (Theta{th})');
-end
-
-H(1:10,:)
-P = zeros(size(H,1),1);
-[dummy, P] = max(H,[],2);
-P = P-1;
+[dummy, p] = max(H, [], 2);
+p = p - 1; 
 % =========================================================================
 
 
