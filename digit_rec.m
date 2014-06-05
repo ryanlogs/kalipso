@@ -7,9 +7,9 @@ function [] = digit_rec(digit)
 	%initialize paramteres
 	load('data\general\train.mat');
 	load('data\general\cv.mat');
-	network = [1568 ;50; 10];
+	network = [784 ;50; 50; 10];
 	num_layers = size(network,1);
-	lambda = 1.2;
+	lambda = 0.5;
 	accuracy = 0;
 	best_lambda = 0;
 	best_Theta  = cell(num_layers-1,1);
