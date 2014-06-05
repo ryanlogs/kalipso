@@ -37,15 +37,16 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	end
 	
 	%setting output vector	
-	Y = zeros(m, num_lables);
+	Y = -1.7159.*ones(m, num_lables);
 	for i = 1:m,
-		Y(i,y(i)+1) = 1;
+		Y(i,y(i)+1) = 1.7159;
 	end;
 
-	P = ((A{num_layers}-0.01)./ 1.7159 + 1)./2;
-	p1 = Y .* log(P);
-	p2 = (1 - Y) .* log(1 - P);
-		
+	P = ((A{num_layers})./ 1.7159 + 1)./2;
+	Q = (Y./ 1.7159 + 1)./2; 
+	p1 = Q.* log(P);
+	p2 = (1 - Q) .* log(1 - P);
+	
 	J = sum(p1 + p2) ;
 	J = sum(J) / (-1 * m);
 
@@ -57,7 +58,7 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	
 	reg = reg / (2*m);
 	
-	J = J + reg;
+	J = J + reg
 
 	%computing gradient
 	
@@ -66,7 +67,7 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	
 	for i = num_layers:-1:1
 		if(i==num_layers)
-			del{i} = (A{i} - Y);
+			del{i} = (A{i} - Y).*hyperbolicGradient(Z{i});
 		else 
 			if(i == 1)
 				delta{i} = (del{i+1})' * A{i};  
