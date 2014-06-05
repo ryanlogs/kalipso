@@ -15,8 +15,8 @@ load('data\general\test.mat');
 
 network=[size(Test_X,2);50; 10];
 num_layers = size(network,1);
-lambda = [ 1.2; 0.3 ];
-iter = 100;
+lambda = [ 1.2; 0.6 ];
+iter = 3000;
 
 %setting initial_nn_params
 initial_nn_params = [];
@@ -44,3 +44,7 @@ end
 pred = predict(Theta,Train_X);
 train_acc = mean(double(pred == Train_y)) * 100;		
 fprintf('\nTraining Accuracy: %f |\tlambda: %f\n', train_acc, i);	
+
+pred = predict(Theta,CV_X);
+cv_acc = mean(double(pred == CV_y)) * 100;		
+fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);

@@ -45,9 +45,13 @@ function [] = generateData(loadCSV,addFeatures)
 	%add features code here ..
 	
 	%normalize Training set
-	features = [Train_set(:,2:end) Train_set(:,2:end).^2 ];
+	%features = [Train_set(:,2:end) Train_set(:,2:end).^2 ];
 	%Train_X = normalise(features);
 	Train_X = Train_set(:,2:end);
+	if(addFeatures==1)
+		Train_X = addFeatures(Train_X);
+		Train_X = [Train_X Train_X.^/255]
+	end	
 	Train_y = Train_set(:,1);
 	
 	fprintf('\n\nSaving Training set in data\\general\\train.mat ...');
@@ -56,7 +60,11 @@ function [] = generateData(loadCSV,addFeatures)
 	%normalize Training set
 	features = [normalise(CV_set(:,2:end)) normalise(CV_set(:,2:end)).^2];
 	%CV_X = normalise(features);
-	 CV_X = CV_set(:,2:end);
+	CV_X = CV_set(:,2:end);
+	if(addFeatures==1)
+		CV_X = addFeatures(CV_X);
+		CV_X = [CV_X CV_X.^/255]
+	end	
 	CV_y = CV_set(:,1);
 	
 	fprintf('\n\nSaving CV set in data\\general\\cv.mat ...');
@@ -75,7 +83,10 @@ function [] = generateData(loadCSV,addFeatures)
 	features = [ Test_set Test_set.^2];
 	%Test_X = normalise(features);
 	Test_X = Test_set;
-	
+	if(addFeatures==1)
+		Test_X = addFeatures(Test_X);
+		Test_X = [Test_X Test_X.^/255]
+	end	
 	fprintf('\n\nSaving Test set in data\\general\\test.mat');
 	save('data\general\test.mat','Test_X');
 
