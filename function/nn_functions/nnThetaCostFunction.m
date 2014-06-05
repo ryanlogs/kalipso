@@ -58,7 +58,7 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	
 	reg = reg / (2*m);
 	
-	J = J + reg
+	J = J + reg;
 
 	%computing gradient
 	
