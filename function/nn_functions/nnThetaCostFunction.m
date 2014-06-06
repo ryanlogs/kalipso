@@ -4,6 +4,7 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 
 	
 	addpath('function\nn_functions');
+	addpath('function\util');
 	m = size(X,1);	
 	
 	num_layers = length(network);
@@ -44,7 +45,8 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 
 	% mm = max(A{num_layers})
 		
-	P = ((A{num_layers})./ 1.7159 + 1)./2;
+	%P = ((A{num_layers})./ 1.7159 + 1)./2;
+	P = normalise(A{num_layers},0,1);
 	mm = min(A{num_layers}(:))
 	ne = max(A{num_layers}(:))
 	
