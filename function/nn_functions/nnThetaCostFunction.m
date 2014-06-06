@@ -42,7 +42,12 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 		Y(i,y(i)+1) = 1.7159;
 	end;
 
+	% mm = max(A{num_layers})
+		
 	P = ((A{num_layers})./ 1.7159 + 1)./2;
+	mm = min(A{num_layers}(:))
+	ne = max(A{num_layers}(:))
+	
 	Q = (Y./ 1.7159 + 1)./2; 
 	p1 = Q.* log(P);
 	p2 = (1 - Q) .* log(1 - P);

@@ -12,14 +12,14 @@ load('data\general\cv.mat');
 load('data\general\test.mat');
 
 
-network=[size(Test_X,2);50; 10];
+network=[size(Test_X,2); 200; 10];
 num_layers = size(network,1);
 lambda = [ 1.2; 0.9 ];
-iter = 3000;
+iter = 2000;
 
 %setting initial_nn_params
 initial_nn_params = [];
-for i = 1:num_layers-1
+for i = 1: num_layers-1
 	parm = randInitializeWeights(network(i),network(i+1));
 	initial_nn_params = [ initial_nn_params ; parm(:) ];
 end
