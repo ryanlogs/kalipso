@@ -50,7 +50,7 @@ function [] = generateData(loadCSV,addFeatures)
 	Train_X = Train_set(:,2:end);
 	if(addFeatures==1)
 		Train_X = addFeatures(Train_X);
-		Train_X = [Train_X Train_X.^/255]
+		Train_X = [Train_X Train_X./255]
 	end	
 	Train_y = Train_set(:,1);
 	
@@ -63,7 +63,7 @@ function [] = generateData(loadCSV,addFeatures)
 	CV_X = CV_set(:,2:end);
 	if(addFeatures==1)
 		CV_X = addFeatures(CV_X);
-		CV_X = [CV_X CV_X.^/255]
+		CV_X = [CV_X CV_X./255]
 	end	
 	CV_y = CV_set(:,1);
 	
@@ -85,7 +85,7 @@ function [] = generateData(loadCSV,addFeatures)
 	Test_X = Test_set;
 	if(addFeatures==1)
 		Test_X = addFeatures(Test_X);
-		Test_X = [Test_X Test_X.^/255]
+		Test_X = [Test_X Test_X./255]
 	end	
 	fprintf('\n\nSaving Test set in data\\general\\test.mat');
 	save('data\general\test.mat','Test_X');
