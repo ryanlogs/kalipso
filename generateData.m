@@ -1,6 +1,6 @@
-function [] = generateData(loadCSV,addFeatures)
+function [] = generateData(loadCSV,haveFeatures)
 % split the data into Cross Validation and train sets into 20:80  %
-% use the addFeatures option to specific if new features should be added
+% use the haveFeatures option to specific if new features should be added
 % use loadCSV if data should load from csv 
 
 	addpath('function\util');
@@ -48,7 +48,7 @@ function [] = generateData(loadCSV,addFeatures)
 	%features = [Train_set(:,2:end) Train_set(:,2:end).^2 ];
 	%Train_X = normalise(features);
 	Train_X = Train_set(:,2:end);
-	if(addFeatures==1)
+	if(haveFeatures==1)
 		Train_X = addFeatures(Train_X);
 		Train_X = [Train_X Train_X./255]
 	end	
@@ -61,7 +61,7 @@ function [] = generateData(loadCSV,addFeatures)
 	features = [normalise(CV_set(:,2:end)) normalise(CV_set(:,2:end)).^2];
 	%CV_X = normalise(features);
 	CV_X = CV_set(:,2:end);
-	if(addFeatures==1)
+	if(haveFeatures==1)
 		CV_X = addFeatures(CV_X);
 		CV_X = [CV_X CV_X./255]
 	end	
@@ -83,7 +83,7 @@ function [] = generateData(loadCSV,addFeatures)
 	features = [ Test_set Test_set.^2];
 	%Test_X = normalise(features);
 	Test_X = Test_set;
-	if(addFeatures==1)
+	if(haveFeatures==1)
 		Test_X = addFeatures(Test_X);
 		Test_X = [Test_X Test_X./255]
 	end	
