@@ -14,7 +14,7 @@ load('data\general\test.mat');
 
 network=[size(Test_X,2);50; 10];
 num_layers = size(network,1);
-lambda = [ 1.2; 0.6 ];
+lambda = [ 1.2; 0.9 ];
 iter = 3000;
 
 %setting initial_nn_params
