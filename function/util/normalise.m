@@ -4,9 +4,6 @@ function norm_x = normalise(x, r_min, r_max)
 	min_vec =  min(x);
 	max_vec =  max(x);
 	
-	r_min =  r_min;
-	r_max =  r_max;
-	
 	indices = [];
 	for i = 1:size(x,2)
 		if(max_vec(1,i)-min_vec(1,i) == 0)
