@@ -1,11 +1,11 @@
-function norm_x = normalise(x)
+function norm_x = normalise(x, r_min, r_max)
 % function normalises each column of input feature	
 
 	min_vec =  min(x);
 	max_vec =  max(x);
 	
-	r_min =  -1;
-	r_max =  1;
+	r_min =  r_min;
+	r_max =  r_max;
 	
 	indices = [];
 	for i = 1:size(x,2)
