@@ -1,5 +1,4 @@
 
-
 addpath('function\nn_functions');
 addpath('function\util');
 
@@ -51,15 +50,15 @@ fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
 
 pred = predict(Theta,Test_X);
 
-disp("Writing Test Output... \n");
+disp('Writing Test Output... \n');
 %writing the headers first
 save_name = sprintf('data\\theta\\%s_Theta%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
-output = sprintf("%s/%s",output_dir,submission_name);
-out_id = fopen(output,"w+");
-fprintf(out_id,"%s","ImageId,Label\n");
+output = sprintf('%s/%s',output_dir,submission_name);
+out_id = fopen(output,'w+');
+fprintf(out_id,'%s','ImageId,Label\n');
 fclose(out_id);
 
 out = (1:28000)';
 out = [out pred];
-dlmwrite (output, out, ",","-append");
+dlmwrite (output, out, ',','-append');
 
