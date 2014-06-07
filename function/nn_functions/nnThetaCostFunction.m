@@ -44,20 +44,22 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	end;
 
 	% mm = max(A{num_layers})
-	P = ((A{num_layers})./ 1.7159 + 1)./2;
+	%P = ((A{num_layers})./ 1.8 + 1)./2;
 		
 	%P = errorFunction(A{num_layers},Y);
 	
 	% mm = max(P(:))
 	% ss = min(P(:))
 	
-	Q = (Y./1.7159 + 1)./2; 
-	p1 = Q.* log(P);
-	p2 = (1 - Q) .* log(1 - P);
+	%Q = (Y + 1)./2; 
+	%p1 = Q.* log(P);
+	%p2 = (1 - Q) .* log(1 - P);
 	
-	J = sum(p1 + p2);
-	J = sum(J) / (-1*m);
+	%J = sum(p1 + p2);
+	%J = sum(J) / (-1*m);
 
+	J = sum(sum((A{num_layers}-Y).^2)) / (2*m);
+	
 	reg = 0;
 	for i = 1:num_layers-1
 		t = Theta{i}(:,2:end);
@@ -66,7 +68,7 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	
 	reg = reg / (2*m);
 	
-	J = J + reg
+	J = J + reg;
 
 	%computing gradient
 	
