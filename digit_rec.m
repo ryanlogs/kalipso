@@ -7,19 +7,19 @@ function [] = digit_rec(digit)
 	%initialize paramteres
 	load('data\general\train.mat');
 	load('data\general\cv.mat');
-	network = [784 ;50;  10];
+	network = [size(Train_X,2) ;50;  10];
 	num_layers = size(network,1);
-	lambda = 0.1:0.2:1.3;
+	lambda = [0.5,0.6];
 	accuracy = 0;
 	best_lambda = 0;
 	best_Theta  = cell(num_layers-1,1);
-	iter = 100;
+	iter = 10;
 	
-	fig = getErrorFigure();
 	x = [];
 	train = [];
 	cv = [];
 
+	
     for i = lambda
 		%train the NN	
 		
@@ -29,14 +29,13 @@ function [] = digit_rec(digit)
 		%test it against CV
 		pred = predict(Theta,CV_X);
 		cv_acc =  mean(double(pred == CV_y)) * 100;
-		
-              
+             
 		pred = predict(Theta,Train_X);
 		train_acc = mean(double(pred == Train_y)) * 100;
+		
 		x = [ x ; i ];
 		train = [ train ; train_acc];
 		cv = [ cv ; cv_acc];
-		[x train cv] = plotError(fig,x,train,cv);
 		
 		if(accuracy < cv_acc)
 			best_lambda = lambda;
@@ -50,6 +49,8 @@ function [] = digit_rec(digit)
 	end
 	save_name = sprintf('data\\theta\\%s_%d_Theta%s.mat','DigitRec',digit,datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
 	%saving theta
+	fig = getErrorFigure();
+	plotError(fig,x,train,cv);
 	fprintf('\n\nSaving Theta for lambda %f in %s\n',best_lambda,save_name);
 	save(save_name,'best_Theta');
 end
