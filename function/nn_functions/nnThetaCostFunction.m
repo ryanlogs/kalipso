@@ -76,7 +76,7 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	for i = num_layers:-1:1
 		if(i==num_layers)
 			%errGradient = Y.*(-2/3).*((A{i}./2 .* hyperbolicGradient(Z{i})).*(Y-A{i}./2) + (1.7159 - A{i}.^2./4).*(hyperbolicGradient(Z{i})./2));
-			del{i} = (A{i} - Y).*hyperbolicGradient(Z{i})./m;
+			del{i} = (A{i} - Y).*hyperbolicGradient(Z{i});
 			%del{i} = errGradient;
 		else 
 			if(i == 1)

@@ -11,7 +11,7 @@ p = zeros(size(X, 1), 1);
 
 H = X;
 for i = 1:size(Theta)
-	H = sigmoid([ones(m,1) H] * (Theta{i})');
+	H = hyperbolic([ones(m,1) H] * (Theta{i})');
 
 [dummy, p] = max(H, [], 2);
 p = p - 1; 
