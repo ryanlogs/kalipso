@@ -44,19 +44,19 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	end;
 
 	% mm = max(A{num_layers})
-	% P = ((A{num_layers})./ 1.8 + 1)./2;
+	P = ((A{num_layers})./ 1.7159 + 1)./2;
 		
-	P = errorFunction(A{num_layers},Y);
+	%P = errorFunction(A{num_layers},Y);
 	
 	% mm = max(P(:))
 	% ss = min(P(:))
 	
-	% Q = (Y./1.7159 + 1)./2; 
-	% p1 = Q.* log(P);
-	% p2 = (1 - Q) .* log(1 - P);
+	Q = (Y./1.7159 + 1)./2; 
+	p1 = Q.* log(P);
+	p2 = (1 - Q) .* log(1 - P);
 	
-	J = sum(P);
-	J = sum(J) / (m);
+	J = sum(p1 + p2);
+	J = sum(J) / (-1*m);
 
 	reg = 0;
 	for i = 1:num_layers-1
@@ -66,7 +66,7 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	
 	reg = reg / (2*m);
 	
-	J = J + reg;
+	J = J + reg
 
 	%computing gradient
 	
@@ -75,9 +75,9 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	
 	for i = num_layers:-1:1
 		if(i==num_layers)
-			errGradient = Y.*(-2/3).*((A{i}./2 .* hyperbolicGradient(Z{i})).*(Y-A{i}./2) + (1.7159 - A{i}.^2./4).*(hyperbolicGradient(Z{i})./2));
-			%del{i} = (A{i} - Y).*hyperbolicGradient(Z{i});
-			del{i} = errGradient;
+			%errGradient = Y.*(-2/3).*((A{i}./2 .* hyperbolicGradient(Z{i})).*(Y-A{i}./2) + (1.7159 - A{i}.^2./4).*(hyperbolicGradient(Z{i})./2));
+			del{i} = (A{i} - Y).*hyperbolicGradient(Z{i});
+			%del{i} = errGradient;
 		else 
 			if(i == 1)
 				delta{i} = (del{i+1})' * A{i};  
