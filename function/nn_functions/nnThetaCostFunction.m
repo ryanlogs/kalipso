@@ -38,25 +38,25 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	end
 	
 	%setting output vector	
-	Y = -1.7159*ones(m, num_lables);
+	Y = -1*ones(m, num_lables);
 	for i = 1:m,
-		Y(i,y(i)+1) = 1.7159;
+		Y(i,y(i)+1) = 1;
 	end;
 
 	% mm = max(A{num_layers})
 	% P = ((A{num_layers})./ 1.8 + 1)./2;
 		
-	P = sigmoid(A{num_layers});
+	P = errorFunction(A{num_layers},Y);
 	
 	% mm = max(P(:))
 	% ss = min(P(:))
 	
-	Q = (Y./1.7159 + 1)./2; 
-	p1 = Q.* log(P);
-	p2 = (1 - Q) .* log(1 - P);
+	% Q = (Y./1.7159 + 1)./2; 
+	% p1 = Q.* log(P);
+	% p2 = (1 - Q) .* log(1 - P);
 	
-	J = sum(p1 + p2) ;
-	J = sum(J) / (-1 * m);
+	J = sum(P);
+	J = sum(J) / (m);
 
 	reg = 0;
 	for i = 1:num_layers-1
@@ -75,7 +75,9 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	
 	for i = num_layers:-1:1
 		if(i==num_layers)
-			del{i} = (A{i} - Y).*hyperbolicGradient(Z{i});
+			errGradient = Y.*(-2/3).*((A{i}./2 .* hyperbolicGradient(Z{i})).*(Y-A{i}./2) + (1.7159 - A{i}.^2./4).*(hyperbolicGradient(Z{i})./2));
+			%del{i} = (A{i} - Y).*hyperbolicGradient(Z{i});
+			del{i} = errGradient;
 		else 
 			if(i == 1)
 				delta{i} = (del{i+1})' * A{i};  

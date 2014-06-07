@@ -14,8 +14,8 @@ load('data\general\test.mat');
 
 network=[size(Test_X,2); 50; 50; 10];
 num_layers = size(network,1);
-lambda = [ 1; 1; 1];
-iter = 500;
+lambda = [1; 1; 1];
+iter = 30;
 
 %setting initial_nn_params
 initial_nn_params = [];
@@ -29,6 +29,12 @@ options = optimset('MaxIter', iter);
 %training NN, the digit value 0 is just a dummy value, not used inside
 costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_y, 0, lambda);
 [nn_params, cost] = fmincg(costFunction, initial_nn_params, options);	
+
+% nn_params = initial_nn_params;
+% for iter = 1:100 
+% [cost, nn_params] = gradientDescent(nn_params,network,Train_X,Train_y,0,lambda,iter,[1.2;0.5;0.5]);
+% end
+
 	
 %unrolling theta	
 Theta = cell(num_layers-1,1);
@@ -52,13 +58,12 @@ pred = predict(Theta,Test_X);
 
 disp('Writing Test Output... \n');
 %writing the headers first
-save_name = sprintf('output\\theta\\%s_Theta%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
-output = sprintf('%s/',save_name);
-out_id = fopen(output,'w+');
-fprintf(out_id,'%s','ImageId,Label\n');
+save_name = sprintf('output\\%s_Theta%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
+out_id = fopen(save_name,'w+');
+fprintf(out_id,'%s','ImageId,Label');
 fclose(out_id);
 
 out = (1:28000)';
 out = [out pred];
-dlmwrite (output, out, ',','-append');
+dlmwrite (save_name, out, '-append','delimiter',',');
 
