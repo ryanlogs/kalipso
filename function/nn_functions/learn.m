@@ -17,7 +17,7 @@ function [Theta, cost] = learn(	network, ...
 	
 	options = optimset('MaxIter', iter);
 	
-	costFunction = @(p) nnCostFunction(p, network, X,y, digit, lambda);
+	costFunction = @(p) nnThetaCostFunction(p, network, X,y, digit, lambda);
 	[nn_params, cost] = fmincg(costFunction, nn_params, options);	
 		
 	%[cost, nn_params] = gradientDescent(nn_params, network, X,y,digit,lambda,iter,alpha);
