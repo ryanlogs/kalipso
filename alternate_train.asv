@@ -12,9 +12,9 @@ load('data\general\cv.mat');
 load('data\general\test.mat');
 
 
-network=[size(Test_X,2); 784; 784; 10];
+network=[size(Test_X,2); 840; 840; 10];
 num_layers = size(network,1);
-lambda = [0.9; 0.9; 0.9];
+lambda = [0.8; 0.8; 0.9];
 iter = 3000;
 
 %setting initial_nn_params
