@@ -12,11 +12,8 @@ load('data\general\cv.mat');
 load('data\general\test.mat');
 
 
-<<<<<<< HEAD
 network=[size(Test_X,2); 50; 10];
-=======
-network=[size(Test_X,2); 784; 784; 10];
->>>>>>> 775f8b1ba84e68ea439050c4e20d21cfc86f8dec
+
 num_layers = size(network,1);
 lambda = [0.9; 0.9; 0.9];
 iter = 3000;
