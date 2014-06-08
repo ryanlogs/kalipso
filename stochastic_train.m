@@ -12,28 +12,18 @@ function [] = stochastic_train
 	load('data\general\test.mat');
 	
 	
-<<<<<<< HEAD
 	network=[size(Test_X,2); 50; 50; 10];
 	num_layers = size(network,1);
 	lambda = [0.9; 0.9; 0.9];
 	%number of iterations to run a small batch
 	iter = 30;
-=======
-	network=[size(Test_X,2); 100; 100; 10];
-	num_layers = size(network,1);
-	lambda = [0.8; 0.8; 0.8];
-	%number of iterations to run a small batch
-	iter = 200;
->>>>>>> 7c4f6bfea29c3dfbf34a549bb50407312e6ce4ee
+
 	%stochastic batch size
 	samples = 100;
 
 	[Theta cost] = learnStochastic(network, ...
-<<<<<<< HEAD
 							Train_X, Train_y, 0, lambda, iter,samples);
-=======
-							 [Train_X;Train_X], [Train_y;Train_y], 0, lambda, iter,samples)
->>>>>>> 7c4f6bfea29c3dfbf34a549bb50407312e6ce4ee
+
 		
 	
 	pred = predict(Theta,Train_X);

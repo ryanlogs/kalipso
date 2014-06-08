@@ -1,3 +1,4 @@
+function [] = alternate_train(digit)
 
 addpath('function\nn_functions');
 addpath('function\util');
@@ -12,11 +13,11 @@ load('data\general\cv.mat');
 load('data\general\test.mat');
 
 
-network=[size(Test_X,2); 50; 10];
+network=[size(Test_X,2); 50; 50; 2];
 
 num_layers = size(network,1);
-lambda = [0.9; 0.9; 0.9];
-iter = 3000;
+lambda = [1.2; 1.2; 1.2];
+iter = 300;
 
 %setting initial_nn_params
 initial_nn_params = [];
@@ -25,10 +26,26 @@ for i = 1: num_layers-1
 	initial_nn_params = [ initial_nn_params ; parm(:) ];
 end
 
+	Train_Y = -1.*ones(size(Train_y,1),1);
+	for i = 1:size(Train_y,1)
+		%Y(i,y(i)+1) = 1;
+		if(Train_y(i)==digit)
+			Train_Y(i) = 1;
+		end
+	end;
+
+	CV_Y = -1.*ones(size(CV_y,1),1);	
+	for i = 1:size(CV_y,1)
+		%Y(i,y(i)+1) = 1;
+		if(CV_y(i)==digit)
+			CV_Y(i) = 1;
+		end	
+	end;
+
 options = optimset('MaxIter', iter);
 
 %training NN, the digit value 0 is just a dummy value, not used inside
-costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_y, 0, lambda);
+costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_Y, digit, lambda);
 [nn_params, cost] = fmincg(costFunction, initial_nn_params, options);	
 
 % nn_params = initial_nn_params;
@@ -48,11 +65,11 @@ for i = 1:num_layers - 1
 end
 
 pred = predict(Theta,Train_X);
-train_acc = mean(double(pred == Train_y)) * 100;		
+train_acc = mean(double(pred == Train_Y)) * 100;		
 fprintf('\nTraining Accuracy: %f |\tlambda: %f\n', train_acc, i);	
 
 pred = predict(Theta,CV_X);
-cv_acc = mean(double(pred == CV_y)) * 100;		
+cv_acc = mean(double(pred == CV_Y)) * 100;		
 fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
 
 pred = predict(Theta,Test_X);
@@ -67,4 +84,5 @@ fclose(out_id);
 out = (1:28000)';
 out = [out pred];
 dlmwrite (save_name, out, '-append','delimiter',',');
-
+fprintf('saving Theta to : %s\n', save_name);
+end
