@@ -68,5 +68,5 @@ function [best_lambda] = digit_rec(digit)
 	%plotError(fig,x,train,cv);
 	%fprintf('\n\nSaving Theta for lambda %f in %s\n',best_lambda,save_name);
 	%save(save_name,'best_Theta');
-	fprintf("Best Lambda = %f",best_lambda)
+	fprintf('Best Lambda = %f\n',best_lambda)
 end
