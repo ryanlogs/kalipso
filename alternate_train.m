@@ -17,7 +17,7 @@ network=[size(Test_X,2); 50; 50; 2];
 
 num_layers = size(network,1);
 lambda = ones(num_layers-1,1).*lm;
-iter = 300;
+iter = 20;
 
 %setting initial_nn_params
 initial_nn_params = [];

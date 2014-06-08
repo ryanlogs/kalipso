@@ -7,13 +7,13 @@ function [best_lambda] = digit_rec(digit)
 	%initialize paramteres
 	load('data\general\train.mat');
 	load('data\general\cv.mat');
-	network = [size(Train_X,2) ;50;  2];
+	network = [size(Train_X,2) ;50; 50; 2];
 	num_layers = size(network,1);
-	lambda = 0.1:0.1:1.3;
+	lambda = 0.5:0.5:1.5;
 	accuracy = 0;
 	best_lambda = 0;
 	best_Theta  = cell(num_layers-1,1);
-	iter = 80;
+	iter = 20;
 	
 	x = [];
 	train = [];
