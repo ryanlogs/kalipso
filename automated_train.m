@@ -37,7 +37,7 @@ pred = main_predict(Main_Theta,Test_X);
 
 disp('Writing Test Output... \n');
 %writing the headers first
-save_name = sprintf('output\\%s_Theta%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
+save_name = sprintf('output\\%s_result%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
 out_id = fopen(save_name,'w+');
 fprintf(out_id,'%s','ImageId,Label');
 fclose(out_id);
