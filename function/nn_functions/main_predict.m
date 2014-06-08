@@ -12,7 +12,7 @@ p = zeros(size(X, 1), 10);
 for digit = 0:9
 	H = X;
 	Theta = Main_Theta{digit+1};
-	for i = 1:size(Theta{i})
+	for i = 1:size(Theta)
 		H = hyperbolic([ones(m,1) H] * (Theta{i})');
 	end
 	p(:,digit+1) = H(:,2);
