@@ -1,4 +1,4 @@
-function [] = alternate_train(digit)
+function [] = alternate_train(digit,lm)
 
 addpath('function\nn_functions');
 addpath('function\util');
@@ -16,7 +16,7 @@ load('data\general\test.mat');
 network=[size(Test_X,2); 50; 50; 2];
 
 num_layers = size(network,1);
-lambda = [1.2; 1.2; 1.2];
+lambda = ones(num_layers-1,1).*lm;
 iter = 300;
 
 %setting initial_nn_params
@@ -72,17 +72,26 @@ pred = predict(Theta,CV_X);
 cv_acc = mean(double(pred == CV_Y)) * 100;		
 fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
 
-pred = predict(Theta,Test_X);
 
-disp('Writing Test Output... \n');
+
+	save_name = sprintf('data\\theta\\%s_%d_Theta%s.mat','DigitRec',digit,datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
+	%saving theta
+	%fig = getErrorFigure();
+	%plotError(fig,x,train,cv);
+	fprintf('\n\nSaving Theta for lambda %f in %s\n',lm,save_name);
+	save(save_name,'best_Theta');
+
+%pred = predict(Theta,Test_X);
+
+%disp('Writing Test Output... \n');
 %writing the headers first
-save_name = sprintf('output\\%s_Theta%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
-out_id = fopen(save_name,'w+');
-fprintf(out_id,'%s','ImageId,Label');
-fclose(out_id);
+%save_name = sprintf('output\\%s_Theta%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
+%out_id = fopen(save_name,'w+');
+%fprintf(out_id,'%s','ImageId,Label');
+%fclose(out_id);
 
-out = (1:28000)';
-out = [out pred];
-dlmwrite (save_name, out, '-append','delimiter',',');
-fprintf('saving Theta to : %s\n', save_name);
+%out = (1:28000)';
+%out = [out pred];
+%dlmwrite (save_name, out, '-append','delimiter',',');
+%fprintf('saving Theta to : %s\n', save_name);
 end
