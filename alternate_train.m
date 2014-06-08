@@ -1,3 +1,5 @@
+% The function runs NN for digit
+
 function [Theta] = alternate_train(digit,lm)
 
 addpath('function\nn_functions');

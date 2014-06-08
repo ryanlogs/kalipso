@@ -25,11 +25,11 @@ load('data\general\test.mat');
 addpath('function\nn_functions');
 
 pred = main_predict(Main_Theta,Train_X);
-train_acc = mean(double(pred == Train_Y)) * 100;		
+train_acc = mean(double(pred == Train_y)) * 100;		
 fprintf('\nTraining Accuracy: %f\n', train_acc);	
 	
 pred = main_predict(Main_Theta,CV_X);
-cv_acc = mean(double(pred == CV_Y)) * 100;		
+cv_acc = mean(double(pred == CV_y)) * 100;		
 fprintf('\nCross Validation Accuracy: %f\n', cv_acc);	
 		
 pred = main_predict(Main_Theta,Test_X);

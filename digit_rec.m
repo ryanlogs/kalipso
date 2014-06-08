@@ -1,3 +1,5 @@
+% The function of digit_rec is to output optimum digit specific lambda.
+
 function [best_lambda] = digit_rec(digit)
 	%pass the digit u want the NN to recognise
 	
