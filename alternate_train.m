@@ -79,7 +79,7 @@ fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
 	%fig = getErrorFigure();
 	%plotError(fig,x,train,cv);
 	fprintf('\n\nSaving Theta for lambda %f in %s\n',lm,save_name);
-	save(save_name,'best_Theta');
+	save(save_name,'Theta');
 
 %pred = predict(Theta,Test_X);
 
