@@ -34,7 +34,7 @@ function [Theta, cost] = learn(	network, ...
 		Theta{i} = reshape(nn_params(read + 1: read + network(i+1) * (network(i) + 1)), ...
 						network(i+1), network(i)+1);
 						
-		read = 	network(i+1) * (network(i) + 1);
+		read = 	read + network(i+1) * (network(i) + 1);
 	end	
 	
 end	
