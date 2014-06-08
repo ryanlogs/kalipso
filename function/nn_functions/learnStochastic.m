@@ -24,7 +24,9 @@ function [Theta, cost] = learnStochastic(	network, ...
 	for i = 0:samples:size(X,1)-samples
 		costFunction = @(p) nnThetaCostFunction(p, network,  X(i+1:i+samples,:),y(i+1:i+samples), digit, lambda);
 		[nn_params, cost] = fmincgStochastic(costFunction, nn_params, options);
-		fprintf('Sample %4d | Cost %f\n',i,cost);
+		if(mod(i,100)==0)
+			fprintf('Sample %4d | Cost %f\n',i,cost(end));
+		end	
 	%	[cost, nn_params] = gradientDescent(nn_params, network, X(i+1:i+100,:),y(i+1:i+100),digit,lambda,iter,alpha);
 	end	
 	

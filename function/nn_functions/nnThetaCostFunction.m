@@ -38,10 +38,7 @@ function [J grad] = kaput_nnThetaCostFunction(nn_params, ...
 	end
 	
 	%setting output vector	
-	Y = -1*ones(m, num_lables);
-	for i = 1:m,
-		Y(i,y(i)+1) = 1;
-	end;
+	Y = [-1.*y , y];
 
 	% mm = max(A{num_layers})
 	%P = ((A{num_layers})./ 1.7159 + 1)./2;

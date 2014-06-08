@@ -12,10 +12,14 @@ p = zeros(size(X, 1), 1);
 H = X;
 for i = 1:size(Theta)
 	H = hyperbolic([ones(m,1) H] * (Theta{i})');
+end
 
 [dummy, p] = max(H, [], 2);
 p = p - 1; 
+for i = 1:size(p,1)
+	if(p(i)==0)
+		p(i) = -1;
+end
 % =========================================================================
-
 
 end
