@@ -7,13 +7,13 @@ function [] = digit_rec(digit)
 	%initialize paramteres
 	load('data\general\train.mat');
 	load('data\general\cv.mat');
-	network = [size(Train_X,2) ;50;  10];
+	network = [size(Train_X,2) ;100;  10];
 	num_layers = size(network,1);
-	lambda = [0.5,0.6];
+	lambda = 0.1:0.1:1.3;
 	accuracy = 0;
 	best_lambda = 0;
 	best_Theta  = cell(num_layers-1,1);
-	iter = 10;
+	iter = 80;
 	
 	x = [];
 	train = [];
