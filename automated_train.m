@@ -24,17 +24,16 @@ load('data\general\test.mat');
 
 addpath('function\nn_functions');
 
-pred = main_predict(Theta,Train_X);
+pred = main_predict(Main_Theta,Train_X);
 train_acc = mean(double(pred == Train_Y)) * 100;		
 fprintf('\nTraining Accuracy: %f\n', train_acc);	
 	
-pred = main_predict(Theta,CV_X);
+pred = main_predict(Main_Theta,CV_X);
 cv_acc = mean(double(pred == CV_Y)) * 100;		
 fprintf('\nCross Validation Accuracy: %f\n', cv_acc);	
 		
-pred = main_predict(Theta,Test_X);
-test_acc = mean(double(pred == CV_Y)) * 100;		
-fprintf('\nCross Validation Accuracy: %f\n', test_acc);			
+pred = main_predict(Main_Theta,Test_X);
+		
 
 disp('Writing Test Output... \n');
 %writing the headers first
