@@ -1,4 +1,4 @@
-function [] = alternate_train(digit,lm)
+function [Theta] = alternate_train(digit,lm)
 
 addpath('function\nn_functions');
 addpath('function\util');
@@ -74,12 +74,12 @@ fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
 
 
 
-	save_name = sprintf('data\\theta\\%s_%d_Theta%s.mat','DigitRec',digit,datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
+%	save_name = sprintf('data\\theta\\%s_%d_Theta%s.mat','DigitRec',digit,datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
 	%saving theta
 	%fig = getErrorFigure();
 	%plotError(fig,x,train,cv);
-	fprintf('\n\nSaving Theta for lambda %f in %s\n',lm,save_name);
-	save(save_name,'Theta');
+%	fprintf('\n\nSaving Theta for lambda %f in %s\n',lm,save_name);
+%	save(save_name,'Theta');
 
 %pred = predict(Theta,Test_X);
 
