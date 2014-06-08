@@ -53,7 +53,8 @@ function [best_lambda] = digit_rec(digit)
 		cv = [ cv ; cv_acc];
 		
 		if(accuracy < cv_acc)
-			best_lambda = lm;
+			accuracy = cv_acc;
+			best_lambda = i;
 			best_Theta = Theta;
 		end
 		
