@@ -1,4 +1,4 @@
-function p = predict(Theta, X)
+function p = predict(Main_Theta, X)
 %PREDICT Predict the label of an input given a trained neural network
 %   p = PREDICT(Theta1, Theta2, X) outputs the predicted label of X given the
 %   trained weights of a neural network (Theta1, Theta2)
@@ -11,7 +11,8 @@ p = zeros(size(X, 1), 10);
 
 for digit = 0:9
 	H = X;
-	for i = 1:size(Theta{digit+1})
+	Theta = Main_Theta{digit+1};
+	for i = 1:size(Theta{i})
 		H = hyperbolic([ones(m,1) H] * (Theta{i})');
 	end
 	p(:,digit+1) = H(:,2);
