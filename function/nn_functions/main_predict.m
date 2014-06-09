@@ -15,7 +15,14 @@ for digit = 0:9
 	for i = 1:size(Theta)
 		H = hyperbolic([ones(m,1) H] * (Theta{i})');
 	end
-	p(:,digit+1) = H(:,2);
+	for i = 1:m
+		if(H(i,1) > H(i,2))
+			p(i,digit+1) = -1 * H(i,2);
+		else
+			p(i,digit+1) =  H(i,1);	
+		end	
+	end	
+%	p(:,digit+1) = H(:,2);
 end
 	
 [dummy, finalPredict] = max(p, [], 2);
