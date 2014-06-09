@@ -17,9 +17,9 @@ for digit = 0:9
 	end
 	for i = 1:m
 		if(H(i,1) > H(i,2))
-			p(i,digit+1) = -1 * H(i,2);
+			p(i,digit+1) = -1 * H(i,1);
 		else
-			p(i,digit+1) =  H(i,1);	
+			p(i,digit+1) =  H(i,2);	
 		end	
 	end	
 %	p(:,digit+1) = H(:,2);
