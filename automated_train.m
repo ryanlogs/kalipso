@@ -2,8 +2,8 @@ Main_Theta = cell(10,1);
 
 for digit = 0:9
 	fprintf('Training digit %d\n',digit);
-	lm = digit_rec(digit);
-	Main_Theta{digit+1} = alternate_train(digit,lm);
+% 	lm = digit_rec(digit);
+	Main_Theta{digit+1} = alternate_train(digit, 0.8);
 end	
 
 save_name = sprintf('data\\theta\\%s_%s_Theta%s.mat','DigitRec','Main_Theta',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
