@@ -1,3 +1,6 @@
+% The function runs NN for digit
+
+function [Theta] = train_nn(lm)
 
 addpath('function\nn_functions');
 addpath('function\util');
@@ -12,10 +15,11 @@ load('data\general\cv.mat');
 load('data\general\test.mat');
 
 
-network=[size(Test_X,2); 840; 840; 10];
+network=[size(Test_X,2); 100; 100; 10];
+
 num_layers = size(network,1);
-lambda = [0.8; 0.8; 0.9];
-iter = 3000;
+lambda = ones(num_layers-1,1).*lm;
+iter = 2000;
 
 %setting initial_nn_params
 initial_nn_params = [];
@@ -24,10 +28,11 @@ for i = 1: num_layers-1
 	initial_nn_params = [ initial_nn_params ; parm(:) ];
 end
 
+
 options = optimset('MaxIter', iter);
 
 %training NN, the digit value 0 is just a dummy value, not used inside
-costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_y, 0, lambda);
+costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_Y, digit, lambda);
 [nn_params, cost] = fmincg(costFunction, initial_nn_params, options);	
 
 % nn_params = initial_nn_params;
@@ -47,23 +52,29 @@ for i = 1:num_layers - 1
 end
 
 pred = predict(Theta,Train_X);
-train_acc = mean(double(pred == Train_y)) * 100;		
+train_acc = mean(double(pred == Train_Y)) * 100;		
 fprintf('\nTraining Accuracy: %f |\tlambda: %f\n', train_acc, i);	
 
 pred = predict(Theta,CV_X);
-cv_acc = mean(double(pred == CV_y)) * 100;		
+cv_acc = mean(double(pred == CV_Y)) * 100;		
 fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
 
 pred = predict(Theta,Test_X);
+		
 
 disp('Writing Test Output... \n');
 %writing the headers first
-save_name = sprintf('output\\%s_Theta%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
+save_name = sprintf('output\\%s_result%s.csv','DigitRec',datestr(clock,'HH_MM_DDDD_mmmm_YYYY'));
 out_id = fopen(save_name,'w+');
-fprintf(out_id,'%s','ImageId,Label');
+fprintf(out_id,'%s\n','ImageId,Label');
 fclose(out_id);
 
 out = (1:28000)';
 out = [out pred];
 dlmwrite (save_name, out, '-append','delimiter',',');
+fprintf('saving Theta to : %s\n', save_name);
 
+fprintf('Done!!!\n');
+
+
+end
