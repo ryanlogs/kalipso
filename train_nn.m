@@ -32,7 +32,7 @@ end
 options = optimset('MaxIter', iter);
 
 %training NN, the digit value 0 is just a dummy value, not used inside
-costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_Y, digit, lambda);
+costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_y, 0, lambda);
 [nn_params, cost] = fmincg(costFunction, initial_nn_params, options);	
 
 % nn_params = initial_nn_params;
@@ -52,11 +52,11 @@ for i = 1:num_layers - 1
 end
 
 pred = predict(Theta,Train_X);
-train_acc = mean(double(pred == Train_Y)) * 100;		
+train_acc = mean(double(pred == Train_y)) * 100;		
 fprintf('\nTraining Accuracy: %f |\tlambda: %f\n', train_acc, i);	
 
 pred = predict(Theta,CV_X);
-cv_acc = mean(double(pred == CV_Y)) * 100;		
+cv_acc = mean(double(pred == CV_y)) * 100;		
 fprintf('\nCV Accuracy: %f |\tlambda: %f\n', cv_acc, i);
 
 pred = predict(Theta,Test_X);
