@@ -1,4 +1,4 @@
-function [Z, U] = apply_pca(Xn,flag,features)
+function [Z, U] = apply_pca(X,flag,features)
 
 	%first normalize
 	[X_norm, mean, sigma] = feature_normalize(X);
