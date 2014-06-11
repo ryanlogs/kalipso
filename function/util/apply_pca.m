@@ -4,6 +4,7 @@ function [Z, U] = apply_pca(X,flag,features)
 	[X_norm, mean, sigma] = feature_normalize(X);
 	
 	%apply PCA
+	X_norm(isnan(X_norm)) = 0; 
 	[Z, U] = pca(X_norm, flag, features);
 	
 	%give the difference between X_norm and X_approx
