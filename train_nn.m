@@ -15,7 +15,7 @@ load('data\general\cv.mat');
 load('data\general\test.mat');
 
 
-network=[size(Test_X,2); 100; 100; 10];
+network=[size(Test_X,2); 928; 928; 10];
 
 num_layers = size(network,1);
 lambda = ones(num_layers-1,1).*lm;
@@ -32,7 +32,7 @@ end
 options = optimset('MaxIter', iter);
 
 %training NN, the digit value 0 is just a dummy value, not used inside
-costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_Y, digit, lambda);
+costFunction = @(p) nnThetaCostFunction(p, network, Train_X, Train_Y, 0, lambda);
 [nn_params, cost] = fmincg(costFunction, initial_nn_params, options);	
 
 % nn_params = initial_nn_params;
